@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="ball.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basketball Event</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <button class="toggle-btn" id="toggle-sidebar-btn"><i class="fas fa-bars"></i></button>
+
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <img src="3.png" alt="Basketball Tournament Logo" class="logo-image">
+            <ul>
+                <li><a href="#" id="home-btn"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="#" id="ticketing-btn"><i class="fas fa-ticket-alt"></i> Tickets</a></li>
+                <li><a href="#" id="bracketing-btn"><i class="fas fa-sitemap"></i> Bracketing</a></li>
+            </ul>
+        </div>
+
+        <!-- Home page content -->
+        <div class="content" id="home-content">
+            <div class="gym-header">BARANGAY GUADALUPE GYM</div>
+            <div class="header">
+                <div class="match-title">
+                    <img src="1.png" alt="Team 1 Logo" class="logo-image1">
+                    <span class="vs">VS</span>
+                    <img src="2.png" alt="Team 2 Logo" class="logo-image1">
+                </div>
+            </div>
+            <div class="matches">
+                <div class="match-card">
+                    <span class="team team-left">LOGO</span>
+                    <span class="vs">VS</span>
+                    <span class="team team-right">LOGO</span>
+                    <span class="score-left">96</span>
+                    <span class="divider">|</span>
+                    <span class="score-right">87</span>
+                </div>
+                <div class="match-card">
+                    <span class="team team-left">LOGO</span>
+                    <span class="vs">VS</span>
+                    <span class="team team-right">LOGO</span>
+                    <span class="score-left">96</span>
+                    <span class="divider">|</span>
+                    <span class="score-right">87</span>
+                </div>
+                <div class="match-card">
+                    <span class="team team-left">LOGO</span>
+                    <span class="vs">VS</span>
+                    <span class="team team-right">LOGO</span>
+                    <span class="score-left">96</span>
+                    <span class="divider">|</span>
+                    <span class="score-right">87</span>
+                </div>
+            </div>
+        </div>
+
+<!-- Schedule page content -->
+<div class="content" id="schedule-content" style="display:none;">
+    <div class="gym-header">
+        BARANGAY GUADALUPE GYM
+    </div>
+    <div class="schedule-layout">
+        <img src="court.png" alt="Court Layout" class="court-layout">
+        <div class="schedule-list">
+            <div class="schedule-title">
+                <h3>Schedule</h3>
+            </div>
+            <ul>
+                <li><a href="#" class="schedule-item" data-match="Match 1">LOGO vs LOGO | OCT 09, 2024 | 3:00 PM</a></li>
+                <li><a href="#" class="schedule-item" data-match="Match 2">LOGO vs LOGO | OCT 20, 2024 | 3:00 PM</a></li>
+                <li><a href="#" class="schedule-item" data-match="Match 3">LOGO vs LOGO | OCT 21, 2024 | 3:00 PM</a></li>
+                <li><a href="#" class="schedule-item" data-match="Match 4">LOGO vs LOGO | OCT 22, 2024 | 3:00 PM</a></li>
+                <li><a href="#" class="schedule-item" data-match="Match 5">LOGO vs LOGO | OCT 23, 2024 | 3:00 PM</a></li>
+                <li><a href="#" class="schedule-item" data-match="Match 6">LOGO vs LOGO | OCT 24, 2024 | 3:00 PM</a></li>
+                <li><a href="#" class="schedule-item" data-match="Match 7">LOGO vs LOGO | OCT 25, 2024 | 3:00 PM</a></li>
+            </ul>
+            <div id="selected-match-details" class="selected-match-details"></div>
+        </div>
+    </div>
+</div>
+
+        <!-- Purchase page content -->
+<div class="content" id="purchase-content" style="display: none;">
+    <div class="gym-header">Purchase Information</div>
+    <form id="purchase-form">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="phone">Phone No</label>
+        <input type="tel" id="phone" name="phone" required>
+
+        <div class="form-actions">
+            <button type="button" onclick="showContent('schedule-content')">Back</button>
+            <button type="submit">Next &gt;&gt;</button>
+        </div>
+    </form>
+</div>
+
+<!-- Purchase Seats -->
+<div class="content" id="seat-selection-content" style="display: none;">
+    <div class="gym-header">Purchase Seats</div>
+    <div class="seat-selection-layout">
+        <!-- Court Image -->
+        <div class="court-image">
+            <img src="seats.png" alt="Court Layout" class="seats-layout">
+        </div>
+        
+        <!-- Seat Information Form -->
+        <div class="seat-selection-form">
+            <label for="seat-type">Seat</label>
+            <select id="seat-type" name="seat-type" onchange="calculateTotal()">
+                <option value="" disabled selected>Select Seat Type</option>
+                <option value="750">Upperbox - P750</option>
+                <option value="850">Lowerbox - P850</option>
+            </select>
+            
+            <label for="seat-quantity">Quantity</label>
+            <div class="quantity-selector">
+                <button type="button" onclick="decrementQuantity()">-</button>
+                <input type="number" id="seat-quantity" name="seat-quantity" value="0" min="0" onchange="calculateTotal()">
+                <button type="button" onclick="incrementQuantity()">+</button>
+            </div>
+
+            <label>Total</label>
+            <div id="total-amount">P 0</div>
+
+            <div class="form-actions">
+                <button type="button" onclick="showContent('purchase-content')">Back</button>
+                <button type="button" onclick="proceedToPayment()">Next &gt;&gt;</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- QR Code Page Content -->
+<div class="content" id="qr-code-content" style="display: none;">
+    <div class="gym-header">Purchase Information</div>
+    <div class="qr-code-container">
+        <div id="qr-code"></div>
+        <p class="qr-instructions">Take a screenshot and present it to the ticketing booth</p>
+        <button type="button" onclick="showContent('seat-selection-content')">Add Ticket</button>
+    </div>
+</div>
+               
+        <!-- Bracket page content -->
+<div class="content" id="bracketing-content" style="display: none;">
+    <div class="gym-header">BARANGAY GUADALUPE GYM</div>
+    <h1 class="bracket-title">Brackets</h1>
+    
+    <!-- Bracket layout with rounds -->
+    <div class="bracket-container">
+        <div class="round1" id="quarter-finals">
+            <h2>Quarter Finals</h2>
+            <div class="match1">
+                <span class="team" onclick="advanceTeam(this)">Team A</span>
+                <span class="team" onclick="advanceTeam(this)">Team B</span>
+            </div>
+            <div class="match2">
+                <span class="team" onclick="advanceTeam(this)">Team C</span>
+                <span class="team" onclick="advanceTeam(this)">Team D</span>
+            </div>
+            <div class="match3">
+                <span class="team" onclick="advanceTeam(this)">Team E</span>
+                <span class="team" onclick="advanceTeam(this)">Team F</span>
+            </div>
+        </div>
+        
+        <div class="round" id="semi-finals">
+            <h2>Semi Finals</h2>
+            <div class="match5">
+                <span class="team" onclick="advanceTeam(this)"></span>
+                <span class="team" onclick="advanceTeam(this)"></span>
+            </div>
+            <div class="match6">
+                <span class="team" onclick="advanceTeam(this)"></span>
+                <span class="team" onclick="advanceTeam(this)"></span>
+            </div>
+        </div>
+
+        <div class="round1" id="finals">
+            <h2>Finals</h2>
+            <div class="match">
+                <span class="team" onclick="advanceTeam(this)"></span>
+                <span class="team" onclick="advanceTeam(this)"></span>
+            </div>
+        </div>
+        
+        <div class="round2" id="champion">
+            <h2>Champion</h2>
+            <div class="match7">
+                <span class="team champion"></span>
+            </div>
+        </div>
+    </div>
+</div>
+    <script src="qrcode.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
